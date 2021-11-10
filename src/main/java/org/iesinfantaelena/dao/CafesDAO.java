@@ -1,4 +1,5 @@
 package org.iesinfantaelena.dao;
+
 import org.iesinfantaelena.modelo.AccesoDatosException;
 
 public interface CafesDAO {

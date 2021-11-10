@@ -1,13 +1,13 @@
 package org.iesinfantaelena.dao;
+import org.iesinfantaelena.modelo.AccesoDatosException;
+import org.iesinfantaelena.utils.Utilidades;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.iesinfantaelena.modelo.AccesoDatosException;
-import org.iesinfantaelena.utils.Utilidades;
 
 
 public class Cafes {
@@ -121,7 +121,7 @@ public class Cafes {
         /* Sentencia sql */
         stmt = null;
         /* Conjunto de Resultados a obtener de la sentencia sql */
-        ResultSet rs = null;
+        rs = null;
         try {
             // Creación de la sentencia
             stmt = connection.createStatement();

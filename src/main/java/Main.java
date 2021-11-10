@@ -1,5 +1,4 @@
 import org.iesinfantaelena.dao.Cafes;
-import org.iesinfantaelena.dao.Libros;
 import org.iesinfantaelena.modelo.AccesoDatosException;
 
 public class Main {
