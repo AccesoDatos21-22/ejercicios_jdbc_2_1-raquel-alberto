@@ -1,5 +1,7 @@
 import org.iesinfantaelena.dao.Cafes;
+import org.iesinfantaelena.dao.Libros;
 import org.iesinfantaelena.modelo.AccesoDatosException;
+import org.iesinfantaelena.modelo.Libro;
 
 public class Main {
 
@@ -7,14 +9,11 @@ public class Main {
 
 
         try {
-            Cafes cafes = new Cafes();
-            cafes.insertar("Cafetito", 150, 1.0f, 100,1000);
-            cafes.insertar("Cafe tacilla", 150, 2.0f, 100,1000);
-            cafes.verTabla();
-            cafes.buscar("tacilla");
-            //cafes.cafesPorProveedor(150);
-           // cafes.borrar("Cafe tacilla");
-           // cafes.verTabla();
+            Libros libroprueba=new Libros();
+            Libro libro1= new Libro(1,"El principito","Antoine de Saint-Exupéry","Éditions Gallimard",100,6000000);
+            libroprueba.anadirLibro(libro1);
+            System.out.println(libroprueba);
+
 
 
 

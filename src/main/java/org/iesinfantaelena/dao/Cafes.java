@@ -303,20 +303,19 @@ public class Cafes {
      */
     public void cafesPorProveedor(int provid) throws AccesoDatosException {
 
-        /* Sentencia sql */
+        //Sentencia sql
         pstmt = null;
-        /* Conjunto de Resultados a obtener de la sentencia sql */
+        //Conjunto de Resultados a obtener de la sentencia sql
         ResultSet rs = null;
         try {
             connection = new Utilidades().getConnection();
             // Creación de la sentencia
             pstmt = connection.prepareStatement(SEARCH_CAFES_PROVEEDOR);
             pstmt.setInt(1, provid);
-            // Ejecución de la consulta y obtención de resultados en un
-            // ResultSet
+            // Ejecución de la consulta y obtención de resultados en un ResultSet
             rs = pstmt.executeQuery();
-
             // Recuperación de los datos del ResultSet
+
             while (rs.next()) {
                 String coffeeName = rs.getString("CAF_NOMBRE");
                 int supplierID = rs.getInt("PROV_ID");
