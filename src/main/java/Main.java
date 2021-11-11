@@ -11,8 +11,7 @@ public class Main {
 
         try {
             Libros libro1 = new Libros();
-            System.out.println(libro1.crearTablaLibros());
-
+            libro1.crearTablaLibros();
 
         } catch (AccesoDatosException | SQLException e) {
             e.printStackTrace();
