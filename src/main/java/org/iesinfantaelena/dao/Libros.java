@@ -150,7 +150,7 @@ public class Libros {
 
     public boolean crearTablaLibros() throws SQLException {
 
-        String sentencia = "create table librosnuevos (isbn integer not null, titulo varchar(50) not null, autor varchar(50) not null, " +
+        String sentencia = "create table libros(isbn integer not null, titulo varchar(50) not null, autor varchar(50) not null, " +
                 "editorial varchar(25) not null, paginas integer not null, copias integer not null, constraint isbn_pk primary key (isbn))";
 
         if (stmt == null)
