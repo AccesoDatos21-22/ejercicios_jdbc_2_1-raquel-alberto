@@ -3,6 +3,8 @@ import org.iesinfantaelena.dao.Libros;
 import org.iesinfantaelena.modelo.AccesoDatosException;
 import org.iesinfantaelena.modelo.Libro;
 
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -14,6 +16,8 @@ public class Main {
             libroprueba.anadirLibro(libro1);
             System.out.println(libroprueba);
 
+            List listalibros=libroprueba.verCatalogo();
+            listalibros.add(libro1);
 
 
 

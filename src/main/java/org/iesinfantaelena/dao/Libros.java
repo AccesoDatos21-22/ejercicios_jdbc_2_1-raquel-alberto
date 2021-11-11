@@ -103,7 +103,7 @@ public class Libros {
      */
 
     public List<Libro> verCatalogo() throws AccesoDatosException {
-        String sentencia= "SELECT * FROM LIBROS;";
+        String sentencia= "SELECT * FROM libros;";
         ArrayList<Libro> listalibros= new ArrayList<Libro>();
 
         try {
