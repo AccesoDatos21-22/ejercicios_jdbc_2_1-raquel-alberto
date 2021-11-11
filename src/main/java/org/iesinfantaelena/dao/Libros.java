@@ -26,7 +26,6 @@ public class Libros {
     /**
      * Constructor: inicializa conexión
      */
-
     public Libros() throws AccesoDatosException {
         try {
             // Obtenemos la conexión
@@ -149,6 +148,17 @@ public class Libros {
 
     }
 
+    public boolean crearTablaLibros() throws SQLException {
+
+        String sentencia = "create table librosnuevos (isbn integer not null, titulo varchar(50) not null, autor varchar(50) not null, " +
+                "editorial varchar(25) not null, paginas integer not null, copias integer not null, constraint isbn_pk primary key (isbn))";
+
+        if (stmt == null)
+            stmt = con.createStatement();
+            stmt.execute(sentencia);
+            liberar();
+        return true;
+    }
 
 
 }

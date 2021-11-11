@@ -1,5 +1,8 @@
 import org.iesinfantaelena.dao.Cafes;
+import org.iesinfantaelena.dao.Libros;
 import org.iesinfantaelena.modelo.AccesoDatosException;
+
+import java.sql.SQLException;
 
 public class Main {
 
@@ -7,18 +10,11 @@ public class Main {
 
 
         try {
-            Cafes cafes = new Cafes();
-            cafes.insertar("Cafetito", 150, 1.0f, 100,1000);
-            cafes.insertar("Cafe tacilla", 150, 2.0f, 100,1000);
-            cafes.verTabla();
-            cafes.buscar("tacilla");
-            //cafes.cafesPorProveedor(150);
-           // cafes.borrar("Cafe tacilla");
-           // cafes.verTabla();
+            Libros libro1 = new Libros();
+            System.out.println(libro1.crearTablaLibros());
 
 
-
-        } catch (AccesoDatosException e) {
+        } catch (AccesoDatosException | SQLException e) {
             e.printStackTrace();
         }
     }
