@@ -273,6 +273,7 @@ public class Libros {
      */
 
     public String[] getCamposLibro() throws AccesoDatosException {
+
         return null;
     }
 

@@ -18,7 +18,6 @@ public class Main {
             libroprueba.borrar(libro1);
             libroprueba.obtenerLibro(1111);
             libroprueba.librosporEditorial("Éditions Gallimard");
-            //libroprueba.getCamposLibro();
             libroprueba.actualizarCopias(libro1);
 
         } catch (AccesoDatosException e) {
