@@ -19,9 +19,6 @@ public class Main {
             List listalibros=libroprueba.verCatalogo();
             listalibros.add(libro1);
 
-
-
-
         } catch (AccesoDatosException e) {
             e.printStackTrace();
         }
