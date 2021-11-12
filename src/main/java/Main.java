@@ -9,7 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         try {
             Libros libroprueba=new Libros();
             Libro libro1= new Libro(1111,"El principito","Antoine de Saint-Exupéry","Éditions Gallimard",100,6000000);
