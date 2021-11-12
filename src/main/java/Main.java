@@ -8,7 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         try {
             Libros libro1 = new Libros();
             libro1.crearTablaLibros();
