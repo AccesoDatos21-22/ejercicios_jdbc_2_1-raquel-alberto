@@ -24,6 +24,8 @@ public class Libros {
     private static final String INSERT_LIBRO_QUERY="INSERT INTO libros VALUES (?,?,?,?,?,?)";
     private static final String SEARCH_LIBROS_EDITORIAL = "SELECT * FROM libros WHERE libros.editorial= ?";
     private static final String VER_CATALOGO = "SELECT * FROM libros";
+    private static final String BORRAR_LIBRO = "DELETE from libros WHERE libros.titulo = ?";
+    private static final String ACTUALIZAR_COPIAS = "UPDATE libros SET copias=100 WHERE libros.isbn = ?";
 
     private Connection con;
     private Statement stmt;
@@ -196,16 +198,71 @@ public class Libros {
      */
 
     public void actualizarCopias(Libro libro) throws AccesoDatosException {
+        pstmt=null;
+        try {
+            pstmt=con.prepareStatement(ACTUALIZAR_COPIAS);
+            pstmt.setInt(1,libro.getISBN());
+            pstmt.executeUpdate();
+            System.out.println("Las copias del libro "+ libro.getTitulo()+ " han sido actualizadas.");
 
+         } catch (SQLException sqle) {
+            // En una aplicación real, escribo en el log y delego
+            Utilidades.printSQLException(sqle);
+            throw new AccesoDatosException(
+                    "Ocurrió un error al acceder a los datos");
+
+        } finally {
+            try {
+                // Liberamos todos los recursos pase lo que pase
+                if (stmt != null) {
+                    stmt.close();
+                }
+
+            } catch (SQLException sqle) {
+                // En una aplicación real, escribo en el log, no delego porque
+                // es error al liberar recursos
+                Utilidades.printSQLException(sqle);
+            }
+        }
     }
 
-    /**
+        /**
      * Borra un libro por ISBN
      * @throws AccesoDatosException
      */
 
     public void borrar(Libro libro) throws AccesoDatosException {
 
+        // Sentencia sql
+        pstmt = null;
+
+        try {
+            // Creación de la sentencia
+            pstmt = con.prepareStatement(BORRAR_LIBRO);
+            pstmt.setString(1, libro.getTitulo());
+            // Ejecución del borrado
+            pstmt.executeUpdate();
+            System.out.println("libro "+ libro.getTitulo()+ " ha sido borrado.");
+
+        } catch (SQLException sqle) {
+            // En una aplicación real, escribo en el log y delego
+            Utilidades.printSQLException(sqle);
+            throw new AccesoDatosException(
+                    "Ocurrió un error al acceder a los datos");
+
+        } finally {
+            try {
+                // Liberamos todos los recursos pase lo que pase
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException sqle) {
+                // En una aplicación real, escribo en el log, no delego porque
+                // es error al liberar recursos
+                Utilidades.printSQLException(sqle);
+            }
+
+        }
 
     }
 
@@ -216,12 +273,50 @@ public class Libros {
      */
 
     public String[] getCamposLibro() throws AccesoDatosException {
-
         return null;
     }
 
 
+
     public void obtenerLibro(int ISBN) throws AccesoDatosException {
+        // Sentencia sql
+        pstmt = null;
+        // Conjunto de Resultados a obtener de la sentencia sql
+        rs = null;
+        try {
+            // Creación de la sentencia
+            pstmt = con.prepareStatement(SEARCH_LIBROS_EDITORIAL);
+            pstmt.setInt(1, ISBN);
+            // Ejecución de la consulta y obtención de resultados en un
+            // ResultSet
+            rs = pstmt.executeQuery();
+
+            // Recuperación de los datos del ResultSet
+            if (rs.next()) {
+                String titulo = rs.getString("titulo");
+                String autor = rs.getString("autor");
+                String editorial = rs.getString("editorial");
+                int paginas = rs.getInt("paginas");
+                int copias = rs.getInt("copias");
+            }
+
+        } catch (SQLException sqle) {
+            // En una aplicación real, escribo en el log y delego
+            Utilidades.printSQLException(sqle);
+            throw new AccesoDatosException(
+                    "Ocurrió un error al acceder a los datos");
+        } finally {
+            try {
+                // Liberamos todos los recursos pase lo que pase
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException sqle) {
+                // En una aplicación real, escribo en el log, no delego porque
+                // es error al liberar recursos
+                Utilidades.printSQLException(sqle);
+            }
+        }
 
     }
 
@@ -275,7 +370,5 @@ public class Libros {
         }
 
     }
-
-
 
 }
