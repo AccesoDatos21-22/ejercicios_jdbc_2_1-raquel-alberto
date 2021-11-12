@@ -134,16 +134,16 @@ public class Libros {
 
     public void anadirLibro(Libro libro) throws AccesoDatosException {
 
-        PreparedStatement stmt=null;
+        pstmt=null;
         try {
-            stmt= con.prepareStatement(INSERT_LIBRO_QUERY);
-            stmt.setInt(1,libro.getISBN());
-            stmt.setString(2,libro.getTitulo());
-            stmt.setString(3,libro.getAutor());
-            stmt.setString(4,libro.getEditorial());
-            stmt.setInt(5,libro.getPaginas());
-            stmt.setInt(6,libro.getCopias());
-            stmt.executeUpdate();
+            pstmt= con.prepareStatement(INSERT_LIBRO_QUERY);
+            pstmt.setInt(1,libro.getISBN());
+            pstmt.setString(2,libro.getTitulo());
+            pstmt.setString(3,libro.getAutor());
+            pstmt.setString(4,libro.getEditorial());
+            pstmt.setInt(5,libro.getPaginas());
+            pstmt.setInt(6,libro.getCopias());
+            pstmt.executeUpdate();
         } catch (SQLException sqle) {
             // En una aplicación real, escribo en el log y delego
             Utilidades.printSQLException(sqle);
@@ -206,16 +206,16 @@ public class Libros {
 
     public void librosporEditorial(String editorial) throws AccesoDatosException{
         //Sentencia SQL
-        PreparedStatement stmnt=null;
+        pstmt=null;
         //Resultados a obtener de la sentencia SQL
-        ResultSet rs=null;
+        rs=null;
         try {
             con=new Utilidades().getConnection();
             //Creacion de la sentencia
-            stmnt=con.prepareStatement(SEARCH_LIBROS_EDITORIAL);
-            stmnt.setString(1,editorial);
+            pstmt=con.prepareStatement(SEARCH_LIBROS_EDITORIAL);
+            pstmt.setString(1,editorial);
             //Ejecución de la consulta y obtencion de resultados en un ResultSet
-            rs=stmnt.executeQuery();
+            rs=pstmt.executeQuery();
             while (rs.next()){
                 int isbn=rs.getInt("isbn");
                 String titulo=rs.getString("titulo");
