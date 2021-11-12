@@ -22,8 +22,6 @@ public class Libro {
         this.copias = copias;
     }
 
-
-
     public int getISBN() {
         return ISBN;
     }
