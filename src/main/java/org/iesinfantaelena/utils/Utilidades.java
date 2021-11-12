@@ -162,7 +162,6 @@ public class Utilidades {
                 }
                 //Cualquier otra excepción encadenada
                 e = e.getNextException();
-
             }
         }
     }
