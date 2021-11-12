@@ -55,7 +55,6 @@ public class Libros {
         }
     }
 
-
     /**
      * Método para cerrar la conexión
      *
