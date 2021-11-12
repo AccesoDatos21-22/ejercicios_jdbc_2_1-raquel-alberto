@@ -23,6 +23,7 @@ public class Libros {
 
     private static final String INSERT_LIBRO_QUERY="INSERT INTO libros VALUES (?,?,?,?,?,?)";
     private static final String SEARCH_LIBROS_EDITORIAL = "SELECT * FROM libros WHERE libros.editorial= ?";
+    private static final String VER_CATALOGO = "SELECT * FROM libros";
 
     private Connection con;
     private Statement stmt;
@@ -40,6 +41,11 @@ public class Libros {
             this.stmt = null;
             this.rs = null;
             this.pstmt = null;
+
+            stmt = con.createStatement();
+
+            stmt.executeUpdate(CREATE_LIBROS);
+
         } catch (IOException e) {
             // Error al leer propiedades
             // En una aplicación real, escribo en el log y delego
@@ -67,7 +73,6 @@ public class Libros {
         }
 
     }
-
 
     /**
      * Método para liberar recursos
@@ -102,13 +107,15 @@ public class Libros {
      */
 
     public List<Libro> verCatalogo() throws AccesoDatosException {
-        String sentencia= "SELECT * FROM libros;";
+        //String sentencia= "SELECT * FROM libros;";
         ArrayList<Libro> listalibros= new ArrayList<Libro>();
 
+        stmt=null;
+        rs=null;
+
         try {
-            if (stmt == null)
-                stmt = con.createStatement();
-                rs = stmt.executeQuery(sentencia);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(VER_CATALOGO);
 
             while(rs.next()){
                 int isbn= rs.getInt("isbn");
@@ -117,12 +124,25 @@ public class Libros {
                 String editorial = rs.getString("editorial");
                 int paginas = rs.getInt("paginas");
                 int copias = rs.getInt("copias");
+
                 listalibros.add(new Libro(isbn,titulo,autor,editorial,paginas,copias));
             }
 
-            } catch (SQLException e) {
-              e.printStackTrace();
+            } catch (SQLException sqle) {
+              sqle.printStackTrace();
+            } finally {
+                try {
+                 // Liberamos todos los recursos pase lo que pase
+                 if (stmt != null) {
+                    stmt.close();
+                 }
+
+            } catch (SQLException sqle) {
+                // En una aplicación real, escribo en el log, no delego porque
+                // es error al liberar recursos
+                Utilidades.printSQLException(sqle);
             }
+        }
 
         return listalibros;
     }
@@ -136,7 +156,9 @@ public class Libros {
 
         pstmt=null;
         try {
+            pstmt=con.prepareStatement(CREATE_LIBROS);
             pstmt= con.prepareStatement(INSERT_LIBRO_QUERY);
+
             pstmt.setInt(1,libro.getISBN());
             pstmt.setString(2,libro.getTitulo());
             pstmt.setString(3,libro.getAutor());
@@ -144,6 +166,7 @@ public class Libros {
             pstmt.setInt(5,libro.getPaginas());
             pstmt.setInt(6,libro.getCopias());
             pstmt.executeUpdate();
+
         } catch (SQLException sqle) {
             // En una aplicación real, escribo en el log y delego
             Utilidades.printSQLException(sqle);
@@ -163,8 +186,6 @@ public class Libros {
                 Utilidades.printSQLException(sqle);
             }
         }
-
-
     }
 
     /**
