@@ -34,6 +34,7 @@ public class Utilidades {
     private Properties prop;
 
     private static final String PROPERTIES_FILE = "src/main/resources/h2-properties.xml";
+    //private static final String PROPERTIES_FILE = "src/main/resources/sqlite-properties.xml";
 
     public Utilidades() throws FileNotFoundException, IOException, InvalidPropertiesFormatException {
         super();
@@ -108,9 +109,8 @@ public class Utilidades {
                     connectionProps);
 
         } else if (this.dbms.equals("sqlite")) {
-            System.out.println("jdbc:" + this.driver + ":");
             conn = DriverManager
-                    .getConnection("jdbc:" + this.dbms + ":");
+                    .getConnection("jdbc:" + this.dbms + ":" + System.getProperty("user.dir") + this.dbName);
         } else if (this.dbms.equals("h2")) {
             conn = DriverManager
                     .getConnection("jdbc:" + this.dbms + ":" + this.dbName + "," +this.userName+"," );
@@ -162,6 +162,7 @@ public class Utilidades {
                 }
                 //Cualquier otra excepción encadenada
                 e = e.getNextException();
+
             }
         }
     }

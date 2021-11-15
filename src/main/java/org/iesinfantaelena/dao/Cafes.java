@@ -58,11 +58,11 @@ public class Cafes {
         } catch (IOException e) {
             // Error al leer propiedades
             // En una aplicación real, escribo en el log y delego
-            //System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
 
         } catch (SQLException sqle) {
             // En una aplicación real, escribo en el log y delego
-            //Utilidades.printSQLException(sqle);
+            Utilidades.printSQLException(sqle);
 
 
         } finally {
